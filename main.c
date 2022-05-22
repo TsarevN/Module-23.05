@@ -274,7 +274,7 @@ void NumberEleven()
 {
 	//Reading a table from a file
 	FILE* file;
-	fopen_s(&file, "text.txt", "r");
+	fopen_s(&file, "NumberEleven.txt", "r");
 	int grid[20][20];
 	int i;
 	int j;
