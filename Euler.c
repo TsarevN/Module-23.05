@@ -6,7 +6,6 @@
 #include <ctype.h>
 #include <stdlib.h> 
 
-//Number 1
 int isPalindrome(long long n)
 {
 	long long reverse = 0;
@@ -468,37 +467,8 @@ void NumberFifteen()
 	printf("Answer NumberFifteen = %lld\n", matrix[0][0]);
 }
 
-//Number 2
-int ParseBrackets(char* str)
-{
-	int k = -1;
-	int count = 0;
-	int lastClosed = 0;
-	char open = '(';
-	char closed = ')';
-	for (int i = 0; i < strlen(str); i++)
-	{
-		if (str[i]==open)
-		{
-			++count;
-		}
-		else if (str[i] == closed)
-		{
-			--count;
-			lastClosed = i + 1;
-		}
-	}
-	if (count < 0)
-		return lastClosed - 1;
-	else if (count > 0)
-		return -1;
-	else
-		return 0;
-}
-
 int main()
 {
-	//Number 1
 	NumberOne();
 	NumberTwo();
 	NumberThree();
@@ -514,15 +484,4 @@ int main()
 	NumberThirteen();
 	NumberFourteen();
 	NumberFifteen();
-
-	//Number 2
-	char* str = (char*)malloc(1024 * sizeof(char));
-	if (!str)
-	{
-		printf("Memory Error");
-		return 0;
-	}
-	gets_s(str, 1024);
-	printf("%d", ParseBrackets(str));
-	
 }
