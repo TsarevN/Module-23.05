@@ -1,13 +1,17 @@
 #include <stdio.h> 
+#include <locale.h> 
 #include <stdbool.h> 
 #include <string.h> 
 #include <math.h> 
+#include <ctype.h>
 #include <stdlib.h> 
 
+//Number 1
 int isPalindrome(long long n)
 {
 	long long reverse = 0;
 	long long temp = 0;
+
 
 	temp = n;
 
@@ -32,17 +36,22 @@ bool isprime(unsigned long n)
 	if (n <= 3)
 	{
 		if (n == 1)
+		{
 			return false;
-      
+		}
 		return true;
 	}
 	if ((n % 2) == 0)
+	{
 		return false;
-    
+	}
 	k = sqrt(n) + 1;
 	for (i = 3; i <= k; i += 2)
+	{
 		if (n % i == 0)
+		{
 			return false;
+		}
 	}
 	return true;
 }
@@ -137,7 +146,9 @@ void NumberFive()
 		for (y = val - 1; y; y--)
 		{
 			if (x % y != 0)
+			{
 				break;
+			}
 		}
 
 		if (y == 0)
@@ -170,8 +181,9 @@ void NumberSeven()
 	for (long long i = 1; i < 10000000000; i++)
 	{
 		if (isPrime(i) == 1)
+		{
 			c++;
-      
+		}
 		if (c == 10002)
 		{
 			printf("Answer NumberSeven = %lli\n", i);
@@ -211,14 +223,17 @@ void NumberEight()
 		long long product = 1;
 
 		for (long long j = 0; j < 13; j++)
-			product *= (*(char*)(number + i + j)) - '0';    
+			product *= (*(char*)(number + i + j)) - '0';    //   (long long) product  *= (char*) number[1..13]
 
 		if (product > largest)
 			largest = product;
 		else if (product == 0) 
 			continue;
+
 	}
+
 	printf("Answer NumberEight = %lli\n", largest);
+
 }
 
 void NumberNine()
@@ -247,7 +262,9 @@ void NumberTen()
 	for (x = 2; x < num; x++)
 	{
 		if (isprime(x))
+		{
 			y += x;
+		}
 	}
 	printf("Answer NumberTen = %llu\n", y);
 	return 0;
@@ -255,6 +272,7 @@ void NumberTen()
 
 void NumberEleven()
 {
+	//Reading a table from a file
 	FILE* file;
 	fopen_s(&file, "text.txt", "r");
 	int grid[20][20];
@@ -272,7 +290,9 @@ void NumberEleven()
 	for (i = 0; i < 20; i++)
 	{
 		for (j = 0; j < 20; j++)
+		{
 			fscanf_s(file, "%d", &grid[i][j]);
+		}
 	}
 
 	// For each number in the grid, there are 8 possible products
@@ -353,6 +373,8 @@ void NumberTwelve()
 	for (i = 1; i < ULONG_MAX; i++)
 	{
 		trinum += i;
+
+		/* triangle number is given by n(n+1)/2 */
 
 		if (i & 1)
 			count = factor(i) * factor((i + 1) / 2);
@@ -436,21 +458,47 @@ void NumberFifteen()
 {
 	long long int matrix[21][21];
 	int i, j;
-	for (i = 0; i <= 21 - 1; i++)
-  {
+	for (i = 0; i <= 21 - 1; i++) {
 		matrix[21 - 1][i] = 1;
 		matrix[i][21 - 1] = 1;
 	}
-  
 	for (i = 21 - 2; i >= 0; i--)
 		for (j = 21 - 2; j >= 0; j--)
 			matrix[i][j] = matrix[i + 1][j] + matrix[i][j + 1];
-      
 	printf("Answer NumberFifteen = %lld\n", matrix[0][0]);
+}
+
+//Number 2
+int ParseBrackets(char* str)
+{
+	int k = -1;
+	int count = 0;
+	int lastClosed = 0;
+	char open = '(';
+	char closed = ')';
+	for (int i = 0; i < strlen(str); i++)
+	{
+		if (str[i]==open)
+		{
+			++count;
+		}
+		else if (str[i] == closed)
+		{
+			--count;
+			lastClosed = i + 1;
+		}
+	}
+	if (count < 0)
+		return lastClosed - 1;
+	else if (count > 0)
+		return -1;
+	else
+		return 0;
 }
 
 int main()
 {
+	//Number 1
 	NumberOne();
 	NumberTwo();
 	NumberThree();
@@ -461,13 +509,20 @@ int main()
 	NumberEight();
 	NumberNine();
 	NumberTen();
-	NumberEleven();
+	NumberEleven();	//Reading a table from a file
 	NumberTwelve();
 	NumberThirteen();
 	NumberFourteen();
 	NumberFifteen();
+
+	//Number 2
+	char* str = (char*)malloc(1024 * sizeof(char));
+	if (!str)
+	{
+		printf("Memory Error");
+		return 0;
+	}
+	gets_s(str, 1024);
+	printf("%d", ParseBrackets(str));
+	
 }
-
-
-
-
